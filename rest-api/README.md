@@ -25,3 +25,5 @@
       "created_at": "2023-09-09T17:58:34.857Z"
       }
    ```
+5. http://localhost:5000/api/delete-all-notes
+

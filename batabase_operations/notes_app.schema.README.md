@@ -76,3 +76,9 @@ DELETE FROM notes_app;
 ```
 DROP TABLE notes_app;
 ```
+
+## Add new column to the notes_app table
+```
+ALTER TABLE notes_app
+ADD updated_at VARCHAR(255) NULL;
+```
