@@ -11,7 +11,7 @@ MSSQL + ExpressJS + REST API
 
 ## Setup MSSQL Server in your machine
 
-Note: Follow the official website to setup
+Note: Please adhere to the instructions provided on the official website to complete the setup.
 
 ## Setup Database config
 
