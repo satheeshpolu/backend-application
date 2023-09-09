@@ -1,7 +1,7 @@
 # REST API Endpoints
 
-1. http://localhost:5000/api/all-notes
-2. http://localhost:5000/api/add-note
+1. http://localhost:5000/api/v1/all-notes
+2. http://localhost:5000/api/v1/add-note
    ```
     Payload: {
        "note_title": "6 Notes",
@@ -9,13 +9,13 @@
       "created_at": "2023-09-09T16:58:34.857Z"
    }
    ```
-3. http://localhost:5000/api/delete-note
+3. http://localhost:5000/api/v1/delete-note
    ```
    Payload: {
       "note_id": 4
    }
    ```
-4. http://localhost:5000/api/update-note
+4. http://localhost:5000/api/v1/update-note
 
    ```
    Payload: {
@@ -25,5 +25,5 @@
       "created_at": "2023-09-09T17:58:34.857Z"
       }
    ```
-5. http://localhost:5000/api/delete-all-notes
+5. http://localhost:5000/api/v1/delete-all-notes
 
