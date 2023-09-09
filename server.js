@@ -5,16 +5,16 @@ const cors = require("cors");
 require("dotenv").config();
 
 // Import the db config
-const config = require("./database_config/mssql");
+const config = require("./src/database_config/mssql");
 
 // DB Operaitons
-const dbOperation = require("./batabase_operations/notes_app");
+const dbOperation = require("./src/batabase_operations/notes_app");
 
 // Import entites
-const Note = require("./entites/note");
+const Note = require("./src/entites/note");
 
-const dateUtils = require("./utils/date-utils");
-
+const dateUtils = require("./src/utils/date-utils");
+const API_ENDPOINT = require("./src/rest-api/api");
 const API_PORT = 5000;
 const app = express();
 app.use(express.json());
@@ -22,31 +22,31 @@ app.use(express.urlencoded());
 app.use(cors());
 
 // Test REST API
-app.get("/api/test", async function (req, res) {
+app.get("/api/v1/test", async function (req, res) {
   res.send({ result: "REST API works fine ...!" });
 });
 
 // Get all notes
-app.get("/api/all-notes", async function (req, res) {
+app.get(API_ENDPOINT.ROOT + API_ENDPOINT.ALL_NOTES, async function (req, res) {
   const allNotes = await dbOperation.getNotes();
   res.send({ result: allNotes.recordset });
 });
 
 // Add new note
-app.post("/api/add-note", async function (req, res) {
+app.post(API_ENDPOINT.ROOT + API_ENDPOINT.ADD_NOTE, async function (req, res) {
   const note = new Note(req.body.note_title, req.body.note_description);
   const result = await dbOperation.addNote(note, dateUtils.getISODateString());
   if (result) res.send({ result: "Note is added scuccessfully...!" });
 });
 
 // Delete note
-app.post("/api/delete-note", async function (req, res) {
+app.post(API_ENDPOINT.ROOT + API_ENDPOINT.DELETE_NOTE, async function (req, res) {
   const result = await dbOperation.deleteNote(req.body.note_id);
   if (result) res.send({ result: "Note is deleted scuccessfully...!" });
 });
 
 // Update note
-app.post("/api/update-note", async function (req, res) {
+app.post(API_ENDPOINT.ROOT + API_ENDPOINT.UPDATE_NOTE, async function (req, res) {
   const note = new Note(req.body.note_title, req.body.note_description);
   const result = await dbOperation.updateNote(
     note,
@@ -57,7 +57,7 @@ app.post("/api/update-note", async function (req, res) {
 });
 
 // Delete all note
-app.post("/api/delete-all-notes", async function (req, res) {
+app.post(API_ENDPOINT.ROOT + API_ENDPOINT.DELETE_ALL_NOTES, async function (req, res) {
   const result = await dbOperation.deleteAllNotes();
   if (result) res.send({ result: "All notes are deleted scuccessfully...!" });
 });
