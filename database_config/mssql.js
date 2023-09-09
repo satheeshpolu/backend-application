@@ -4,12 +4,12 @@ const config = {
     server: process.env.SERVER,
     database: process.env.DATABASE_NAME,
     options: {
-        trustServerCertificate: process.env.TRUST_SERVER_CERTIFICATE,
-        trustedConnection: process.env.TRUSTED_CONNECTION,
-        enableArithAbort: process.env.ENABLE_ARITHABORT,
+        trustServerCertificate: Boolean(process.env.TRUST_SERVER_CERTIFICATE),
+        trustedConnection: Boolean(process.env.TRUSTED_CONNECTION),
+        enableArithAbort: Boolean(process.env.ENABLE_ARITHABORT),
         instancename: process.env.DATABASE_INSTANCE_NAME,
     },
-    port: process.env.PORT
+    port: parseInt(process.env.PORT)
 }
 console.log(config);
 module.exports = config;
