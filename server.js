@@ -21,11 +21,6 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors());
 
-// Test REST API
-app.get("/api/v1/test", async function (req, res) {
-  res.send({ result: "REST API works fine ...!" });
-});
-
 // Get all notes
 app.get(API_ENDPOINT.ROOT + API_ENDPOINT.ALL_NOTES, async function (req, res) {
   const allNotes = await dbOperation.getNotes();
@@ -62,7 +57,18 @@ app.post(API_ENDPOINT.ROOT + API_ENDPOINT.DELETE_ALL_NOTES, async function (req,
   if (result) res.send({ result: "All notes are deleted scuccessfully...!" });
 });
 
+// Test REST API
+app.get("/api/v1/test", async function (req, res) {
+  res.send({ result: "REST API works fine ...!" });
+});
+
+// Docker test REST API
+app.get('/test-api', async function (req, res) {
+  res.send({ result: "Docker image works fine. It's a test REST API for docker...!" });
+});
+
 app.listen(API_PORT, () =>
   console.log(`Server is running on ${API_PORT} 
-    \nVisit http://localhost:5000/api/test`)
+    \nVisit http://localhost:5000/api/v1/test
+    \nVisit http://localhost:5001/api/v1/test-api`)
 );
