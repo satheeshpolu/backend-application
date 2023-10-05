@@ -26,6 +26,18 @@ const getNotes = async () => {
   }
 };
 
+// Get note by note_id
+const getNoteByID = async (id) => {
+  try {
+    const pool = await sql.connect(config);
+    const note = await pool.request().query(`SELECT * from notes_app where note_id='${id}'`);
+    console.log('getNoteByID => ', note);
+    return note;
+  } catch (error) {
+    console.log("Error while add getting the notes => ", error);
+  }
+};
+
 // Delete note by ID
 const deleteNote = async (id) => {
   try {
@@ -46,7 +58,8 @@ const updateNote = async (note, id, updated_at) => {
     const notes = await pool.request()
       .query(`UPDATE notes_app SET note_title = '${note.note_title}', note_description = '${note.note_description}', updated_at = '${updated_at}' 
        WHERE note_id = '${id}'`);
-    return notes;
+    const latestNote = await getNoteByID(id);
+    return latestNote;
   } catch (error) {
     console.log("Error while updating the note => ", error);
   }
@@ -70,5 +83,6 @@ module.exports = {
   deleteNote: deleteNote,
   getNotes: getNotes,
   updateNote: updateNote,
-  deleteAllNotes: deleteAllNotes
+  deleteAllNotes: deleteAllNotes,
+  getNoteByID: getNoteByID,
 };
