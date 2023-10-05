@@ -1,0 +1,23 @@
+#Build multiple docker-images for different projects using docker-compose
+version: '3.8'
+services:
+  api_server:
+    build: ./backend-application      #backend-application name
+    container_name: be-app-container  #container name
+    ports:
+      - '3001:3000'                   #<Expose new port> : <Actual server port>
+    # volumes:
+    #   - ./backend-application:/app
+    #   - ./app/node_modules  
+  
+  rn_server:
+    build: ./frontend-application     #frontend-application name
+    container_name: fe-app-container  #container name
+    ports:
+      - '4001:4000'                   #<Expose new port> : <Actual server port>
+    # volumes:
+    #   - ./backend-application:/app
+    #   - ./app/node_modules  
+    stdin_open: true
+    tty: true
+    
