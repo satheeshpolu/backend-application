@@ -1,6 +1,7 @@
 const API = {
     ROOT: '/api/v1',
     ALL_NOTES: '/all-notes',
+    NOTE_BY_ID: '/note/id',
     ADD_NOTE: '/add-note',
     DELETE_NOTE: '/delete-note',
     UPDATE_NOTE: '/update-note',

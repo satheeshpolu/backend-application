@@ -26,6 +26,12 @@ app.get("/api/v1/test", async function (req, res) {
   res.send({ result: "REST API works fine ...!" });
 });
 
+// Get note by note_id 
+app.get(API_ENDPOINT.ROOT + API_ENDPOINT.NOTE_BY_ID, async function (req, res) {
+  const allNotes = await dbOperation.getNoteByID(req.body.note_id);
+  res.send({ result: allNotes.recordset });
+});
+
 // Get all notes
 app.get(API_ENDPOINT.ROOT + API_ENDPOINT.ALL_NOTES, async function (req, res) {
   const allNotes = await dbOperation.getNotes();
@@ -53,7 +59,7 @@ app.post(API_ENDPOINT.ROOT + API_ENDPOINT.UPDATE_NOTE, async function (req, res)
     req.body.note_id,
     dateUtils.getISODateString()
   );
-  if (result) res.send({ result: "Note is updated scuccessfully...!" });
+  if (result) res.send({ result: result });
 });
 
 // Delete all note
