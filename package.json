@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
+    "startAuthServer": "node authServer.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -L server.js"
   },
@@ -13,6 +14,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "mssql": "^9.1.1",
     "mssql2": "^3.3.1",
     "nodemon": "^3.0.1"
