@@ -17,12 +17,18 @@ const dateUtils = require("./src/utils/date-utils");
 const API_ENDPOINT = require("./src/rest-api/api");
 const API_PORT = 5000;
 const app = express();
+const userRouter = require('./src/users/user.router');
+
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors());
 
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/users/login', userRouter);
+
 app.get("/api/v1/test", async function (req, res) {
   res.send({ result: "REST API works fine ...!" });
+  //res.json({msg: "REST API works fine ...!"})
 });
 
 // Get note by note_id 
@@ -68,9 +74,9 @@ app.post(API_ENDPOINT.ROOT + API_ENDPOINT.DELETE_ALL_NOTES, async function (req,
 });
 
 // Test REST API
-app.get("/api/v1/test", async function (req, res) {
-  res.send({ result: "REST API works fine ...!" });
-});
+// app.get("/api/v1/test", async function (req, res) {
+//   res.send({ result: "REST API works fine ...!111" });
+// });
 
 // Docker test REST API
 app.get('/test-api', async function (req, res) {
