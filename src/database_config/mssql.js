@@ -1,3 +1,5 @@
+const mysql = require('mssql');
+
 const config = {
     user: process.env.USER,
     password: process.env.PASSWORD,
@@ -9,7 +11,7 @@ const config = {
         enableArithAbort: process.env.ENABLE_ARITHABORT === 'true',
         instancename: process.env.DATABASE_INSTANCE_NAME,
     },
-    port: parseInt(process.env.PORT)
+    port: parseInt(process.env.PORT),
 }
 
 module.exports = config;
