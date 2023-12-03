@@ -31,7 +31,6 @@ const getNoteByID = async (id) => {
   try {
     const pool = await sql.connect(config);
     const note = await pool.request().query(`SELECT * from notes_app where note_id='${id}'`);
-    console.log('getNoteByID => ', note);
     return note;
   } catch (error) {
     console.log("Error while add getting the notes => ", error);
