@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
+    "start-graphql": "node graphql-server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -L server.js"
   },
   "dependencies": {
+    "apollo-server-express": "^3.13.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
