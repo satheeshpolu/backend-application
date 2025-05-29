@@ -48,7 +48,7 @@ Base URL: `http://localhost:5000/api/v1`
   ...
 ]
 ```
-![Get All Notes Response](./src/assets/REST-API-getALL.png)
+![Get All Notes Response](./src/assets/REST-API-getAll.png)
 ---
 
 ## 2. ➕ Add a New Note
