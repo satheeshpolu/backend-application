@@ -48,7 +48,7 @@ Base URL: `http://localhost:5000/api/v1`
   ...
 ]
 ```
-Initially there is not data:
+# Initially there is no data:
 ![Get All Notes Response](./src/assets/REST-API-getAll.png)
 
 ---
@@ -134,6 +134,171 @@ Initially there is not data:
 - All endpoints use `application/json` for both requests and responses.
 - Ensure proper error handling for invalid inputs or missing fields.
 - `note_id` is required for update and delete operations.
+
+---
+
+
+# 🔗 GraphQL User Management API
+
+This API provides CRUD operations to manage user data using GraphQL.
+
+---
+
+## 📌 Endpoint
+
+```
+http://localhost:6000/graphql
+```
+
+Use a GraphQL client like [GraphQL Playground](https://github.com/graphql/graphql-playground) or [Postman](https://www.postman.com/) to interact with the API.
+
+---
+
+## 🔧 Operations
+
+### ➕ 1. `createUser`
+
+**Mutation:**
+```graphql
+mutation {
+  createUser(username: "johndoe", email: "john@example.com") {
+    username
+    email
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "data": {
+    "createUser": {
+      "username": "johndoe",
+      "email": "john@example.com"
+    }
+  }
+}
+```
+![Create User](./src/assets/gql-getAll-empty.png)
+---
+
+### 🧾 2. `User` (Query All Users)
+
+**Query:**
+```graphql
+query {
+  users {
+    id
+    username
+    email
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "data": {
+    "users": [
+      {
+        "id": 1,
+        "username": "johndoe",
+        "email": "john@example.com"
+      },
+      ...
+    ]
+  }
+}
+```
+![Get all Users](./src/assets/gql-getAll.png)
+---
+
+### ✏️ 3. `updateUser`
+
+**Mutation:**
+```graphql
+mutation {
+  updateUser(id: 1, username: "johnsmith", email: "smith@example.com") {
+    username
+    email
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "data": {
+    "updateUser": {
+      "username": "johnsmith",
+      "email": "smith@example.com"
+    }
+  }
+}
+```
+![Update User](./src/assets/gql-update.png)
+---
+
+### ❌ 4. `deleteUser`
+
+**Mutation:**
+```graphql
+mutation {
+  deleteUser(id: 1) {
+    username
+    email
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "data": {
+    "deleteUser": {
+      "username": "johnsmith",
+      "email": "smith@example.com"
+    }
+  }
+}
+```
+![Delete User](./src/assets/gql-deleteAll.png)
+---
+
+### 🧹 5. `deleteAllUsers`
+
+**Mutation:**
+```graphql
+mutation {
+  deleteAllUsers {
+    username
+    email
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "data": {
+    "deleteAllUsers": [
+      {
+        "username": "johndoe",
+        "email": "john@example.com"
+      },
+      ...
+    ]
+  }
+}
+```
+![Delete All User](./src/assets/gql-deleteAll.png)
+---
+
+## ⚠️ Notes
+
+- All responses are wrapped in a `data` object per GraphQL spec.
+- Errors will be returned in an `errors` array if the query or mutation fails.
+- Make sure your GraphQL server is running before testing.
 
 ---
 
