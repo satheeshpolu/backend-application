@@ -48,7 +48,7 @@ Base URL: `http://localhost:5000/api/v1`
   ...
 ]
 ```
-
+Initially there is not data:
 ![Get All Notes Response](./src/assets/REST-API-getAll.png)
 
 ---
@@ -67,11 +67,12 @@ Base URL: `http://localhost:5000/api/v1`
 **Response Example:**
 ```json
 {
-  "message": "Note added successfully.",
+  "message": "Note is added successfully...!",
   "note_id": 2183
 }
 ```
-
+![Create](./src/assets/REST-add-note.png)
+![Afer Created](./src/assets/REST-after-create.png)
 ---
 
 ## 3. ✏️ Update a Note
@@ -92,6 +93,7 @@ Base URL: `http://localhost:5000/api/v1`
   "message": "Note updated successfully."
 }
 ```
+![Update](./src/assets/REST-update.png)
 
 ---
 
@@ -111,7 +113,7 @@ Base URL: `http://localhost:5000/api/v1`
   "message": "Note deleted successfully."
 }
 ```
-
+![Delete](./src/assets/REST-delete.png)
 ---
 
 ## 5. 🧹 Delete All Notes
@@ -124,7 +126,7 @@ Base URL: `http://localhost:5000/api/v1`
   "message": "All notes deleted successfully."
 }
 ```
-
+![Delete all](./src/assets/REST-API-getAll.png)
 ---
 
 ## ⚠️ Notes
