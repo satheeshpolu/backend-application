@@ -17,15 +17,18 @@ const start = async () => {
     });
 
     console.log(`
-┌────────────────────────────────────────────────┐
-│           Server Started Successfully          │
-├────────────────────────────────────────────────┤
-│  Environment: ${config.env.padEnd(31)}│
-│  Port: ${String(config.port).padEnd(38)}│
-│  API: http://localhost:${config.port}/api/v1${' '.repeat(13)}│
-│  Docs: http://localhost:${config.port}/api-docs${' '.repeat(11)}│
-│  Health: http://localhost:${config.port}/health${' '.repeat(10)}│
-└────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────┐
+│            Server Started Successfully           │
+├──────────────────────────────────────────────────┤
+│  Environment: ${config.env.padEnd(33)}│
+│  Port:        ${String(config.port).padEnd(33)}  │
+├──────────────────────────────────────────────────┤
+│  REST API:    http://localhost:${config.port}/api/v1${' '.repeat(8)}│
+│  Swagger:     http://localhost:${config.port}/api-docs${' '.repeat(6)}│
+│  GraphQL:     http://localhost:${config.port}/graphql${' '.repeat(7)}│
+│  GraphiQL:    http://localhost:${config.port}/graphiql${' '.repeat(6)}│
+│  Health:      http://localhost:${config.port}/health${' '.repeat(8)}│
+└──────────────────────────────────────────────────┘
     `);
 
     // Graceful shutdown

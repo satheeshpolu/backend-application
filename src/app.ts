@@ -134,6 +134,27 @@ export const buildApp = async (): Promise<FastifyInstance> => {
   await fastify.register(notesRoutes, { prefix: '/api/v1/notes' });
   await fastify.register(usersRoutes, { prefix: '/api/v1/users' });
 
+  // API root - shows available endpoints
+  fastify.get('/api/v1', async (_request, reply) => {
+    return successResponse(
+      reply,
+      {
+        version: '1.0.0',
+        endpoints: {
+          notes: '/api/v1/notes',
+          users: '/api/v1/users',
+          test: '/api/v1/test',
+        },
+        documentation: {
+          swagger: '/api-docs',
+          graphql: '/graphql',
+          graphiql: '/graphiql',
+        },
+      },
+      'Welcome to Notes API'
+    );
+  });
+
   // Test endpoint
   fastify.get('/api/v1/test', async (_request, reply) => {
     return successResponse(reply, { version: '1.0.0' }, 'REST API works fine!');
