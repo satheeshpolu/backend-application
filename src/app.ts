@@ -13,6 +13,7 @@ import config from './config';
 import authPlugin from './plugins/auth';
 import validationPlugin from './plugins/validation';
 import redisPlugin from './plugins/redis';
+import graphqlPlugin from './graphql';
 import { errorResponse, successResponse } from './utils/response';
 
 // Import routes
@@ -69,6 +70,12 @@ export const buildApp = async (): Promise<FastifyInstance> => {
 
   await fastify.register(authPlugin);
   await fastify.register(validationPlugin);
+
+  // ===========================================
+  // GraphQL
+  // ===========================================
+
+  await fastify.register(graphqlPlugin);
 
   // ===========================================
   // Swagger Documentation
