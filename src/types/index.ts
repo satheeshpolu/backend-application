@@ -73,10 +73,7 @@ export interface ServiceResponse<T> {
 }
 
 // Controller Handler Type
-export type ControllerHandler = (
-  request: FastifyRequest,
-  reply: FastifyReply
-) => Promise<void>;
+export type ControllerHandler = (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
 
 // Authenticated Controller Handler
 export type AuthenticatedHandler = (

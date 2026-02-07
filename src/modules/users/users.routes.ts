@@ -15,7 +15,10 @@ import { errorResponse } from '../../utils/response';
 const validateRegister = async (request: FastifyRequest, reply: FastifyReply) => {
   const result = registerUserSchema.safeParse(request.body);
   if (!result.success) {
-    const errors = result.error.issues.map(i => ({ field: i.path.join('.'), message: i.message }));
+    const errors = result.error.issues.map((i) => ({
+      field: i.path.join('.'),
+      message: i.message,
+    }));
     return errorResponse(reply, 'Validation failed', 400, errors);
   }
   request.body = result.data;
@@ -24,7 +27,10 @@ const validateRegister = async (request: FastifyRequest, reply: FastifyReply) =>
 const validateLogin = async (request: FastifyRequest, reply: FastifyReply) => {
   const result = loginUserSchema.safeParse(request.body);
   if (!result.success) {
-    const errors = result.error.issues.map(i => ({ field: i.path.join('.'), message: i.message }));
+    const errors = result.error.issues.map((i) => ({
+      field: i.path.join('.'),
+      message: i.message,
+    }));
     return errorResponse(reply, 'Validation failed', 400, errors);
   }
   request.body = result.data;
@@ -33,7 +39,10 @@ const validateLogin = async (request: FastifyRequest, reply: FastifyReply) => {
 const validateUpdateProfile = async (request: FastifyRequest, reply: FastifyReply) => {
   const result = updateUserSchema.safeParse(request.body);
   if (!result.success) {
-    const errors = result.error.issues.map(i => ({ field: i.path.join('.'), message: i.message }));
+    const errors = result.error.issues.map((i) => ({
+      field: i.path.join('.'),
+      message: i.message,
+    }));
     return errorResponse(reply, 'Validation failed', 400, errors);
   }
   request.body = result.data;
@@ -42,7 +51,10 @@ const validateUpdateProfile = async (request: FastifyRequest, reply: FastifyRepl
 const validateChangePassword = async (request: FastifyRequest, reply: FastifyReply) => {
   const result = changePasswordSchema.safeParse(request.body);
   if (!result.success) {
-    const errors = result.error.issues.map(i => ({ field: i.path.join('.'), message: i.message }));
+    const errors = result.error.issues.map((i) => ({
+      field: i.path.join('.'),
+      message: i.message,
+    }));
     return errorResponse(reply, 'Validation failed', 400, errors);
   }
   request.body = result.data;
@@ -110,10 +122,7 @@ const usersRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.put(
     '/profile',
     {
-      preHandler: [
-        fastify.authenticate,
-        validateUpdateProfile,
-      ],
+      preHandler: [fastify.authenticate, validateUpdateProfile],
       schema: {
         tags: ['Users'],
         summary: 'Update user profile',
@@ -134,10 +143,7 @@ const usersRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.post(
     '/change-password',
     {
-      preHandler: [
-        fastify.authenticate,
-        validateChangePassword,
-      ],
+      preHandler: [fastify.authenticate, validateChangePassword],
       schema: {
         tags: ['Users'],
         summary: 'Change password',

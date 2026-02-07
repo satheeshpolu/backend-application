@@ -16,10 +16,14 @@ export const apiResponseSchema = <T extends z.ZodType>(dataSchema: T) =>
 export const errorResponseSchema = z.object({
   success: z.literal(false),
   message: z.string(),
-  errors: z.array(z.object({
-    field: z.string().optional(),
-    message: z.string(),
-  })).optional(),
+  errors: z
+    .array(
+      z.object({
+        field: z.string().optional(),
+        message: z.string(),
+      })
+    )
+    .optional(),
   timestamp: z.string().datetime(),
 });
 

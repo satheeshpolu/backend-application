@@ -27,7 +27,10 @@ export const notesService = {
   /**
    * Get all notes with pagination
    */
-  async findAll(pagination: Pagination, userId?: number): Promise<{ notes: Note[]; total: number }> {
+  async findAll(
+    pagination: Pagination,
+    userId?: number
+  ): Promise<{ notes: Note[]; total: number }> {
     const pool = await getPool();
 
     // Count query
@@ -72,11 +75,8 @@ export const notesService = {
    */
   async findById(id: number): Promise<Note | null> {
     const pool = await getPool();
-    
-    const result = await pool
-      .request()
-      .input('id', sql.Int, id)
-      .query<NoteRow>(`
+
+    const result = await pool.request().input('id', sql.Int, id).query<NoteRow>(`
         SELECT id, title, content, user_id, created_at, updated_at 
         FROM notes 
         WHERE id = @id
@@ -99,8 +99,7 @@ export const notesService = {
       .request()
       .input('title', sql.NVarChar(255), data.title)
       .input('content', sql.NVarChar(sql.MAX), data.content)
-      .input('userId', sql.Int, userId)
-      .query<NoteRow>(`
+      .input('userId', sql.Int, userId).query<NoteRow>(`
         INSERT INTO notes (title, content, user_id, created_at)
         OUTPUT INSERTED.id, INSERTED.title, INSERTED.content, 
                INSERTED.user_id, INSERTED.created_at, INSERTED.updated_at

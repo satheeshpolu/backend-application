@@ -3,10 +3,7 @@
  */
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { notesService } from './notes.service';
-import {
-  CreateNoteInput,
-  UpdateNoteInput,
-} from '../../schemas/note.schema';
+import { CreateNoteInput, UpdateNoteInput } from '../../schemas/note.schema';
 import {
   successResponse,
   createdResponse,
@@ -24,7 +21,7 @@ export const notesController = {
     const page = query.page ?? 1;
     const limit = query.limit ?? 10;
     const pagination = { page, limit, offset: (page - 1) * limit };
-    
+
     // Get user ID from JWT if authenticated
     const userId = request.user?.userId;
 

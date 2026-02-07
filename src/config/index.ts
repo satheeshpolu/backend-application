@@ -47,16 +47,10 @@ export const config: AppConfig = {
   },
 
   database: {
-    user: isProduction
-      ? getEnv('DB_USER')
-      : getEnv('DB_USER', 'sa'),
-    password: isProduction
-      ? getEnv('DB_PASSWORD')
-      : getEnv('DB_PASSWORD', 'password'),
+    user: isProduction ? getEnv('DB_USER') : getEnv('DB_USER', 'sa'),
+    password: isProduction ? getEnv('DB_PASSWORD') : getEnv('DB_PASSWORD', 'password'),
     server: getEnv('DB_SERVER', 'localhost'),
-    database: isProduction
-      ? getEnv('DB_NAME')
-      : getEnv('DB_NAME', 'notes_db'),
+    database: isProduction ? getEnv('DB_NAME') : getEnv('DB_NAME', 'notes_db'),
     port: getEnvNumber('DB_PORT', 1433),
     options: {
       encrypt: getEnvBoolean('DB_ENCRYPT', true),
@@ -76,12 +70,12 @@ export const config: AppConfig = {
   },
 
   cors: {
-    origins: getEnv('CORS_ORIGINS', '*').split(',').map(s => s.trim()),
+    origins: getEnv('CORS_ORIGINS', '*')
+      .split(',')
+      .map((s) => s.trim()),
   },
 
-  redis: process.env.REDIS_URL
-    ? { url: process.env.REDIS_URL }
-    : undefined,
+  redis: process.env.REDIS_URL ? { url: process.env.REDIS_URL } : undefined,
 };
 
 export default config;

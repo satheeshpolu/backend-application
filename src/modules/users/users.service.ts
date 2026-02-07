@@ -65,8 +65,7 @@ export const usersService = {
       .request()
       .input('email', sql.NVarChar(255), data.email)
       .input('username', sql.NVarChar(50), data.username)
-      .input('password', sql.NVarChar(255), hashedPassword)
-      .query<UserRow>(`
+      .input('password', sql.NVarChar(255), hashedPassword).query<UserRow>(`
         INSERT INTO users (email, username, password, created_at)
         OUTPUT INSERTED.id, INSERTED.email, INSERTED.username, 
                INSERTED.password, INSERTED.created_at, INSERTED.updated_at
@@ -82,9 +81,7 @@ export const usersService = {
   async login(data: LoginUserInput): Promise<SafeUser | null> {
     const pool = await getPool();
 
-    const result = await pool
-      .request()
-      .input('email', sql.NVarChar(255), data.email)
+    const result = await pool.request().input('email', sql.NVarChar(255), data.email)
       .query<UserRow>(`
         SELECT id, email, username, password, created_at, updated_at
         FROM users
@@ -112,10 +109,7 @@ export const usersService = {
   async findById(id: number): Promise<SafeUser | null> {
     const pool = await getPool();
 
-    const result = await pool
-      .request()
-      .input('id', sql.Int, id)
-      .query<UserRow>(`
+    const result = await pool.request().input('id', sql.Int, id).query<UserRow>(`
         SELECT id, email, username, password, created_at, updated_at
         FROM users
         WHERE id = @id
@@ -134,10 +128,7 @@ export const usersService = {
   async findByEmail(email: string): Promise<SafeUser | null> {
     const pool = await getPool();
 
-    const result = await pool
-      .request()
-      .input('email', sql.NVarChar(255), email)
-      .query<UserRow>(`
+    const result = await pool.request().input('email', sql.NVarChar(255), email).query<UserRow>(`
         SELECT id, email, username, password, created_at, updated_at
         FROM users
         WHERE email = @email
@@ -153,7 +144,10 @@ export const usersService = {
   /**
    * Update user profile
    */
-  async updateProfile(id: number, data: { email?: string; username?: string }): Promise<SafeUser | null> {
+  async updateProfile(
+    id: number,
+    data: { email?: string; username?: string }
+  ): Promise<SafeUser | null> {
     const pool = await getPool();
 
     const updates: string[] = [];

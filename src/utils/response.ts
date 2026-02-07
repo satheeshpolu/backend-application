@@ -42,7 +42,7 @@ export const paginatedResponse = <T>(
   message = 'Success'
 ): FastifyReply => {
   const totalPages = Math.ceil(total / pagination.limit);
-  
+
   const response: PaginatedResponse<T> = {
     success: true,
     message,

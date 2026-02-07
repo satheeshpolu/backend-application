@@ -9,11 +9,7 @@ import {
   UpdateUserInput,
   ChangePasswordInput,
 } from '../../schemas/user.schema';
-import {
-  successResponse,
-  createdResponse,
-  errorResponse,
-} from '../../utils/response';
+import { successResponse, createdResponse, errorResponse } from '../../utils/response';
 
 export const usersController = {
   /**

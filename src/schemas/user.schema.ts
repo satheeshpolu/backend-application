@@ -43,49 +43,45 @@ export const loginUserSchema = z.object({
     .email('Invalid email format')
     .toLowerCase()
     .trim(),
-  password: z
-    .string({ required_error: 'Password is required' })
-    .min(1, 'Password is required'),
+  password: z.string({ required_error: 'Password is required' }).min(1, 'Password is required'),
 });
 
 // Update user schema
-export const updateUserSchema = z.object({
-  email: z
-    .string()
-    .email('Invalid email format')
-    .toLowerCase()
-    .trim()
-    .optional(),
-  username: z
-    .string()
-    .min(3, 'Username must be at least 3 characters')
-    .max(50, 'Username must be less than 50 characters')
-    .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores')
-    .trim()
-    .optional(),
-}).refine(data => data.email || data.username, {
-  message: 'At least one field (email or username) must be provided',
-});
+export const updateUserSchema = z
+  .object({
+    email: z.string().email('Invalid email format').toLowerCase().trim().optional(),
+    username: z
+      .string()
+      .min(3, 'Username must be at least 3 characters')
+      .max(50, 'Username must be less than 50 characters')
+      .regex(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores')
+      .trim()
+      .optional(),
+  })
+  .refine((data) => data.email || data.username, {
+    message: 'At least one field (email or username) must be provided',
+  });
 
 // Change password schema
-export const changePasswordSchema = z.object({
-  currentPassword: z
-    .string({ required_error: 'Current password is required' })
-    .min(1, 'Current password is required'),
-  newPassword: z
-    .string({ required_error: 'New password is required' })
-    .min(8, 'Password must be at least 8 characters')
-    .max(128, 'Password must be less than 128 characters')
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-      'Password must contain at least one lowercase letter, one uppercase letter, and one number'
-    ),
-  confirmPassword: z
-    .string({ required_error: 'Confirm password is required' }),
-}).refine(data => data.newPassword === data.confirmPassword, {
-  message: 'Passwords do not match',
-  path: ['confirmPassword'],
-});
+export const changePasswordSchema = z
+  .object({
+    currentPassword: z
+      .string({ required_error: 'Current password is required' })
+      .min(1, 'Current password is required'),
+    newPassword: z
+      .string({ required_error: 'New password is required' })
+      .min(8, 'Password must be at least 8 characters')
+      .max(128, 'Password must be less than 128 characters')
+      .regex(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+        'Password must contain at least one lowercase letter, one uppercase letter, and one number'
+      ),
+    confirmPassword: z.string({ required_error: 'Confirm password is required' }),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  });
 
 // User ID parameter schema
 export const userIdParamSchema = z.object({

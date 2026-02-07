@@ -3,10 +3,7 @@
  */
 import { FastifyPluginAsync, FastifyRequest, FastifyReply } from 'fastify';
 import { notesController } from './notes.controller';
-import {
-  createNoteSchema,
-  updateNoteSchema,
-} from '../../schemas/note.schema';
+import { createNoteSchema, updateNoteSchema } from '../../schemas/note.schema';
 import { errorResponse } from '../../utils/response';
 
 // Simple validators
@@ -30,7 +27,10 @@ const validatePagination = async (request: FastifyRequest, _reply: FastifyReply)
 const validateCreateNote = async (request: FastifyRequest, reply: FastifyReply) => {
   const result = createNoteSchema.safeParse(request.body);
   if (!result.success) {
-    const errors = result.error.issues.map(i => ({ field: i.path.join('.'), message: i.message }));
+    const errors = result.error.issues.map((i) => ({
+      field: i.path.join('.'),
+      message: i.message,
+    }));
     return errorResponse(reply, 'Validation failed', 400, errors);
   }
   request.body = result.data;
@@ -39,7 +39,10 @@ const validateCreateNote = async (request: FastifyRequest, reply: FastifyReply) 
 const validateUpdateNote = async (request: FastifyRequest, reply: FastifyReply) => {
   const result = updateNoteSchema.safeParse(request.body);
   if (!result.success) {
-    const errors = result.error.issues.map(i => ({ field: i.path.join('.'), message: i.message }));
+    const errors = result.error.issues.map((i) => ({
+      field: i.path.join('.'),
+      message: i.message,
+    }));
     return errorResponse(reply, 'Validation failed', 400, errors);
   }
   request.body = result.data;
@@ -50,10 +53,7 @@ const notesRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.get(
     '/',
     {
-      preHandler: [
-        fastify.optionalAuth,
-        validatePagination,
-      ],
+      preHandler: [fastify.optionalAuth, validatePagination],
       schema: {
         tags: ['Notes'],
         summary: 'Get all notes',
@@ -94,10 +94,7 @@ const notesRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.post(
     '/',
     {
-      preHandler: [
-        fastify.authenticate,
-        validateCreateNote,
-      ],
+      preHandler: [fastify.authenticate, validateCreateNote],
       schema: {
         tags: ['Notes'],
         summary: 'Create a new note',
@@ -119,11 +116,7 @@ const notesRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.put(
     '/:id',
     {
-      preHandler: [
-        fastify.authenticate,
-        validateNoteId,
-        validateUpdateNote,
-      ],
+      preHandler: [fastify.authenticate, validateNoteId, validateUpdateNote],
       schema: {
         tags: ['Notes'],
         summary: 'Update a note',
@@ -151,11 +144,7 @@ const notesRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.patch(
     '/:id',
     {
-      preHandler: [
-        fastify.authenticate,
-        validateNoteId,
-        validateUpdateNote,
-      ],
+      preHandler: [fastify.authenticate, validateNoteId, validateUpdateNote],
       schema: {
         tags: ['Notes'],
         summary: 'Partially update a note',
@@ -169,10 +158,7 @@ const notesRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.delete(
     '/:id',
     {
-      preHandler: [
-        fastify.authenticate,
-        validateNoteId,
-      ],
+      preHandler: [fastify.authenticate, validateNoteId],
       schema: {
         tags: ['Notes'],
         summary: 'Delete a note',

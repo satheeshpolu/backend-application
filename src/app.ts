@@ -23,9 +23,10 @@ export const buildApp = async (): Promise<FastifyInstance> => {
   const fastify = Fastify({
     logger: {
       level: config.env === 'development' ? 'info' : 'warn',
-      transport: config.env === 'development' 
-        ? { target: 'pino-pretty', options: { colorize: true } }
-        : undefined,
+      transport:
+        config.env === 'development'
+          ? { target: 'pino-pretty', options: { colorize: true } }
+          : undefined,
     },
     trustProxy: true,
   });
@@ -80,9 +81,7 @@ export const buildApp = async (): Promise<FastifyInstance> => {
         description: 'Production-ready Notes API with Fastify, TypeScript, and Zod',
         version: '1.0.0',
       },
-      servers: [
-        { url: `http://localhost:${config.port}`, description: 'Development' },
-      ],
+      servers: [{ url: `http://localhost:${config.port}`, description: 'Development' }],
       components: {
         securitySchemes: {
           bearerAuth: {
@@ -153,7 +152,7 @@ export const buildApp = async (): Promise<FastifyInstance> => {
     });
 
     // Type guard for error with validation
-    const err = error as Error & { 
+    const err = error as Error & {
       validation?: Array<{ instancePath?: string; message?: string }>;
       statusCode?: number;
     };
@@ -178,10 +177,7 @@ export const buildApp = async (): Promise<FastifyInstance> => {
     }
 
     // Hide internal errors in production
-    const message =
-      config.env === 'production'
-        ? 'Internal server error'
-        : err.message;
+    const message = config.env === 'production' ? 'Internal server error' : err.message;
 
     return errorResponse(reply, message, 500);
   });

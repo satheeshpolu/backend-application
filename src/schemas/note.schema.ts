@@ -28,22 +28,24 @@ export const createNoteSchema = z.object({
 });
 
 // Update note schema (all fields optional)
-export const updateNoteSchema = z.object({
-  title: z
-    .string()
-    .min(1, 'Title cannot be empty')
-    .max(255, 'Title must be less than 255 characters')
-    .trim()
-    .optional(),
-  content: z
-    .string()
-    .min(1, 'Content cannot be empty')
-    .max(10000, 'Content must be less than 10000 characters')
-    .trim()
-    .optional(),
-}).refine(data => data.title || data.content, {
-  message: 'At least one field (title or content) must be provided',
-});
+export const updateNoteSchema = z
+  .object({
+    title: z
+      .string()
+      .min(1, 'Title cannot be empty')
+      .max(255, 'Title must be less than 255 characters')
+      .trim()
+      .optional(),
+    content: z
+      .string()
+      .min(1, 'Content cannot be empty')
+      .max(10000, 'Content must be less than 10000 characters')
+      .trim()
+      .optional(),
+  })
+  .refine((data) => data.title || data.content, {
+    message: 'At least one field (title or content) must be provided',
+  });
 
 // Note ID parameter schema
 export const noteIdParamSchema = z.object({

@@ -66,7 +66,10 @@ const redisPlugin: FastifyPluginAsync = async (fastify) => {
       }
     });
   } catch (error) {
-    fastify.log.error({ error }, 'Failed to connect to Redis - falling back to in-memory rate limiting');
+    fastify.log.error(
+      { error },
+      'Failed to connect to Redis - falling back to in-memory rate limiting'
+    );
     fastify.decorate('redis', null);
   }
 };

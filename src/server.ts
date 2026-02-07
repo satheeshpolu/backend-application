@@ -11,9 +11,9 @@ const start = async () => {
     const app = await buildApp();
 
     // Start server
-    await app.listen({ 
-      port: config.port, 
-      host: config.host 
+    await app.listen({
+      port: config.port,
+      host: config.host,
     });
 
     console.log(`
@@ -31,7 +31,7 @@ const start = async () => {
     // Graceful shutdown
     const shutdown = async (signal: string) => {
       console.log(`\n${signal} received. Shutting down gracefully...`);
-      
+
       try {
         await app.close();
         await closePool();
@@ -52,7 +52,6 @@ const start = async () => {
     process.on('unhandledRejection', (reason) => {
       console.error('Unhandled Rejection:', reason);
     });
-
   } catch (error) {
     console.error('Failed to start server:', error);
     process.exit(1);
