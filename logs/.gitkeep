@@ -1,0 +1,4 @@
+# Logs directory
+# This folder stores application logs
+# All files in this directory are gitignored
+*.log
