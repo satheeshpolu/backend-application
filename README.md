@@ -1,6 +1,6 @@
 # 🚀 Backend Application
 
-A production-ready **REST API** and **GraphQL** server built with **Fastify**, **TypeScript**, **Zod**, and **MSSQL**.
+A **REST API** and **GraphQL** server using **Fastify**, **TypeScript**, **Zod**, and **MSSQL**.
 
 [![CI/CD Pipeline](https://github.com/satheeshpolu/backend-application/actions/workflows/ci.yml/badge.svg)](https://github.com/satheeshpolu/backend-application/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
