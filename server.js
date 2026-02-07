@@ -102,7 +102,7 @@ app.get("/api/v1/test", (req, res) => {
 // SSE Endpoints
 // ===========================================
 
-app.get("/api/v1/sse", asyncHandler(async (req, res) => {
+app.get("/api/v1/sse", (req, res) => {
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
@@ -115,7 +115,7 @@ app.get("/api/v1/sse", asyncHandler(async (req, res) => {
     clearInterval(intervalId);
     res.end();
   });
-}));
+});
 
 app.get("/api/v1/events", asyncHandler(async (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
@@ -130,6 +130,7 @@ app.get("/api/v1/events", asyncHandler(async (req, res) => {
       const updated = await notesModule.service.findAll();
       res.write(`data: ${JSON.stringify(updated.data)}\n\n`);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('SSE error:', error.message);
     }
   }, 5000);
@@ -152,6 +153,7 @@ app.use(errorHandler);
 // ===========================================
 
 const server = app.listen(config.port, () => {
+  // eslint-disable-next-line no-console
   console.log(`
 ┌────────────────────────────────────────────────┐
 │           Server Started Successfully          │
@@ -168,22 +170,26 @@ const server = app.listen(config.port, () => {
 // Graceful Shutdown
 // ===========================================
 
-const shutdown = async (signal) => {
+const shutdown = (signal) => {
+  // eslint-disable-next-line no-console
   console.log(`\n${signal} received. Shutting down...`);
   
   server.close(async () => {
     try {
       await notesModule.service.closePool();
       await closeRateLimiter();
+      // eslint-disable-next-line no-console
       console.log('Cleanup complete.');
       process.exit(0);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Shutdown error:', error);
       process.exit(1);
     }
   });
 
   setTimeout(() => {
+    // eslint-disable-next-line no-console
     console.error('Forced shutdown');
     process.exit(1);
   }, 30000);
@@ -192,10 +198,12 @@ const shutdown = async (signal) => {
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT', () => shutdown('SIGINT'));
 process.on('uncaughtException', (error) => {
+  // eslint-disable-next-line no-console
   console.error('Uncaught Exception:', error);
   shutdown('uncaughtException');
 });
 process.on('unhandledRejection', (reason) => {
+  // eslint-disable-next-line no-console
   console.error('Unhandled Rejection:', reason);
 });
 

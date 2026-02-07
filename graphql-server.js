@@ -1,6 +1,5 @@
-const { ApolloServer, gql } = require("apollo-server-express");
+const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
-const sql = require("mssql");
 
 // Define your GraphQL schema
 const typeDefs = require("./src/graph-ql/types");
@@ -29,6 +28,7 @@ const startServer = async () => {
 
   // Start the server
   app.listen(PORT, () => {
+    // eslint-disable-next-line no-console
     console.log(`Server running at http://localhost:${PORT}/graphql`);
   });
 };

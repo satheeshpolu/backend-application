@@ -94,7 +94,9 @@ const validateNoteId = (req, res, next) => {
  * Sanitize string input to prevent XSS
  */
 const sanitizeString = (str) => {
-  if (typeof str !== 'string') return str;
+  if (typeof str !== 'string') {
+    return str;
+  }
   return str
     .replace(/[<>]/g, '') // Remove angle brackets
     .trim();
@@ -106,7 +108,7 @@ const sanitizeString = (str) => {
 const sanitizeBody = (req, res, next) => {
   if (req.body && typeof req.body === 'object') {
     for (const key in req.body) {
-      if (typeof req.body[key] === 'string') {
+      if (Object.hasOwn(req.body, key) && typeof req.body[key] === 'string') {
         req.body[key] = sanitizeString(req.body[key]);
       }
     }
@@ -125,9 +127,15 @@ const validatePagination = (req, res, next) => {
   limit = parseInt(limit, 10) || 10;
 
   // Validate ranges
-  if (page < 1) page = 1;
-  if (limit < 1) limit = 1;
-  if (limit > 100) limit = 100; // Max limit to prevent abuse
+  if (page < 1) {
+    page = 1;
+  }
+  if (limit < 1) {
+    limit = 1;
+  }
+  if (limit > 100) {
+    limit = 100; // Max limit to prevent abuse
+  }
 
   req.pagination = {
     page,

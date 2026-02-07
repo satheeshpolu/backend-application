@@ -5,7 +5,7 @@ const request = require('supertest');
 const app = require('../../server');
 
 describe('Notes API', () => {
-  let authToken;
+  // let authToken;
 
   beforeAll(async () => {
     // TODO: Get auth token for tests

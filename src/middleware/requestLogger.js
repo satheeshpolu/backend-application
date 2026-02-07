@@ -13,7 +13,9 @@ const generateRequestId = () => {
  * Format bytes to human readable string
  */
 const formatBytes = (bytes) => {
-  if (bytes === 0) return '0 B';
+  if (bytes === 0) {
+    return '0 B';
+  }
   const k = 1024;
   const sizes = ['B', 'KB', 'MB', 'GB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
@@ -32,7 +34,8 @@ const requestLogger = (options = {}) => {
   return (req, res, next) => {
     // Skip excluded paths
     if (excludePaths.some(path => req.path.startsWith(path))) {
-      return next();
+      next();
+      return;
     }
 
     // Add request ID
@@ -65,6 +68,7 @@ const requestLogger = (options = {}) => {
       requestLog.body = sanitizedBody;
     }
 
+    // eslint-disable-next-line no-console
     console.log(`[REQUEST] ${JSON.stringify(requestLog)}`);
 
     // Capture response
@@ -90,6 +94,7 @@ const requestLogger = (options = {}) => {
       };
 
       const logLevel = res.statusCode >= 500 ? 'ERROR' : res.statusCode >= 400 ? 'WARN' : 'INFO';
+      // eslint-disable-next-line no-console
       console.log(`[${logLevel}] ${JSON.stringify(responseLog)}`);
     });
 

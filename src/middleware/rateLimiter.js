@@ -16,10 +16,13 @@ let useRedis = false;
  * Initialize Redis client
  */
 const initRedis = async () => {
-  if (redisClient) return redisClient;
+  if (redisClient) {
+    return redisClient;
+  }
   
   // Skip Redis if REDIS_URL is not set
   if (!process.env.REDIS_URL) {
+    // eslint-disable-next-line no-console
     console.log('[RateLimiter] REDIS_URL not set, using in-memory store');
     useRedis = false;
     return null;
@@ -31,12 +34,14 @@ const initRedis = async () => {
     
     redisClient.on('error', (err) => {
       if (useRedis) { // Only log once
+        // eslint-disable-next-line no-console
         console.warn('[RateLimiter] Redis error, falling back to in-memory:', err.message);
       }
       useRedis = false;
     });
 
     redisClient.on('connect', () => {
+      // eslint-disable-next-line no-console
       console.log('[RateLimiter] Connected to Redis');
       useRedis = true;
     });
@@ -45,6 +50,7 @@ const initRedis = async () => {
     useRedis = true;
     return redisClient;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.warn('[RateLimiter] Redis unavailable, using in-memory store:', error.message);
     useRedis = false;
     return null;
@@ -244,6 +250,7 @@ const apiRateLimiter = rateLimiter({
 const closeRateLimiter = async () => {
   if (redisClient?.isOpen) {
     await redisClient.quit();
+    // eslint-disable-next-line no-console
     console.log('[RateLimiter] Redis connection closed');
   }
 };

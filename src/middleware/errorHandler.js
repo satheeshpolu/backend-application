@@ -29,7 +29,7 @@ const createError = {
  * Global error handling middleware
  * Handles both operational and programming errors
  */
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res, _next) => {
   // Log error for debugging (use proper logging in production)
   console.error(`[${new Date().toISOString()}] Error:`, {
     message: err.message,

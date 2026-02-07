@@ -1,7 +1,7 @@
 /**
  * Notes Service Unit Tests
  */
-const notesService = require('../../src/modules/notes/notes.service');
+// const notesService = require('../../src/modules/notes/notes.service');
 
 describe('Notes Service', () => {
   describe('create', () => {
