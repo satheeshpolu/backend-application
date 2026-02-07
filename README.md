@@ -15,6 +15,7 @@ A production-ready **REST API** and **GraphQL** server built with **Fastify**, *
 - [Getting Started](#-getting-started)
 - [Environment Variables](#-environment-variables)
 - [API Documentation](#-api-documentation)
+  - [Swagger UI Screenshots](#-swagger-ui-screenshots)
   - [REST API Endpoints](#rest-api-endpoints)
   - [GraphQL API](#graphql-api)
 - [Scripts](#-scripts)
@@ -234,6 +235,23 @@ CORS_ORIGINS=http://localhost:3000,http://localhost:8080
 ---
 
 ## 📚 API Documentation
+
+### 📸 Swagger UI Screenshots
+
+> **Interactive API Documentation** available at `http://localhost:5000/api-docs`
+
+#### Overview
+*Swagger UI showing all available API endpoints*
+![alt text](docs/screenshots/image.png)
+![alt text](docs/screenshots/image-1.png)
+
+> 📝 **Note:** To add your own screenshots:
+> 1. Create a `docs/screenshots/` folder
+> 2. Run the server: `npm run dev`
+> 3. Open `http://localhost:5000/api-docs`
+> 4. Take screenshots and save them with the names above
+
+---
 
 ### REST API Endpoints
 
